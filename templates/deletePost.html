@@ -1,0 +1,16 @@
+<!-- delete.html -->
+<!DOCTYPE html>
+<html>
+<head>
+	<!--<link href="juno.css" rel="stylesheet" type="text/css">-->
+</head>
+<body>
+	<h1>Blongo - Delete Entry</h1>
+	<form method="post" action="http://127.0.0.1:8000/publicacion/delete/">
+		{% csrf_token %}
+		<input type="hidden" name="id" value="{{id}}">
+		<p>Seguro que deseas eliminar la publicacion?</p>
+		<input type="submit" value="Delete">
+	</form>
+</body>
+</html>

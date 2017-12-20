@@ -1,0 +1,31 @@
+<!-- update.html -->
+<!DOCTYPE html>
+<html>
+<head>
+	<!--link href="juno.css" rel="stylesheet" type="text/css"-->
+</head>
+<body>
+	<h1>Blongo - Update Entry</h1>
+	<form method="post" action="http://127.0.0.1:8000/publicacion/update/">
+		{% csrf_token %}
+		<ul>
+			<li><input type="hidden" name="id" value="{{post.id}}"></li>
+			<li>
+				<input type="text" name="titulo" placeholder="Titulo post"
+					   value="{{post.titulo}}" required>
+				<input type="text" name="fecha_update"
+					   value="{{post.fecha_update}}" required>
+			</li>
+			<li>
+<textarea name="content" placeholder="Ingrese Contenido"
+		  rows=5 cols=50 required>
+{{post.contenido}}
+</textarea>
+			</li>
+			<li>
+				<input type="submit" value="Guardar Cambios">
+			</li>
+		</ul>
+	</form>
+</body>
+</html>
