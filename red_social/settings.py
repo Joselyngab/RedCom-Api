@@ -48,9 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.publicacion',
-    'apps.usuario',
-    'apps.ente',
+    'apps.api',
     'rest_framework',
     'rest_framework_mongoengine'
 ]
