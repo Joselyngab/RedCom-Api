@@ -14,6 +14,9 @@ router = routers.DefaultRouter()
 # register REST API endpoints with DRF router
 router.register(r'publicacion', views.PublicacionViewSet, r"publicacion")
 router.register(r'user', views.UserViewSet, r"user")
+router.register(r'categoriapost', views.UserViewSet, r"categoriapost")
+router.register(r'notificacion', views.UserViewSet, r"notificacion")
+router.register(r'apoyo', views.UserViewSet, r"apoyo")
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^publicacion/', include('apps.publicacion.urls', namespace="publicacion")),

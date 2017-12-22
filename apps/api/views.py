@@ -5,9 +5,9 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from rest_framework_mongoengine import viewsets
 from models import Publicacion
-from models import User
-from serializers import PublicacionSerializer
-from serializers import UserSerializer
+from models import User,CategoriaPost,Notificacion,Apoyo
+from serializers import PublicacionSerializer,UserSerializer, 
+CategoriaPostSerializer, NotificacionSerializer,ApoyoSerializer
 import datetime
 class PublicacionViewSet(viewsets.ModelViewSet):
     '''
@@ -89,3 +89,37 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.all()
+
+class CategoriaPostViewSet(viewsets.ModelViewSet):
+    '''
+    Contains information about inputs/outputs of a single program
+    that may be used in Universe workflows.
+    '''
+    lookup_field = 'id'
+    serializer_class = CategoriaPostSerializer
+
+    def get_queryset(self):
+        return CategoriaPost.objects.all()
+
+
+class NotificacionViewSet(viewsets.ModelViewSet):
+    '''
+    Contains information about inputs/outputs of a single program
+    that may be used in Universe workflows.
+    '''
+    lookup_field = 'id'
+    serializer_class = NotificacionSerializer
+
+    def get_queryset(self):
+        return Notificacion.objects.all()
+
+class ApoyoViewSet(viewsets.ModelViewSet):
+    '''
+    Contains information about inputs/outputs of a single program
+    that may be used in Universe workflows.
+    '''
+    lookup_field = 'id'
+    serializer_class = ApoyoSerializer
+
+    def get_queryset(self):
+        return Apoyo.objects.all()
