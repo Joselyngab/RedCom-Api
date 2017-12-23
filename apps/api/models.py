@@ -2,23 +2,25 @@
 from __future__ import unicode_literals
 from django.db import models
 from mongoengine import *
+import  datetime
 #from red_social.settings import DBNAME
 #connect(DBNAME)
 
 
 class User(Document):
-    name = StringField(max_length=120,required=True)
-    apellido = StringField(max_length=30, required=True)
-    email= EmailField(primary_key=True)
-    password= StringField(max_length=10,required=True)
-    intereses = ListField(StringField(),required=True)
-    genero = BooleanField(required=True)
-    estado = StringField()
-    municipio = StringField()
-    parroquia = StringField()
-    direccion = StringField()
+    email= EmailField(primary_key=True,unique=True)
+    name = StringField(max_length=120)
+    apellido = StringField(max_length=30)
+    password= StringField(max_length=10)
+    intereses = ListField(StringField())
+    genero = IntField(default=0)
     edad = IntField(default=0)
-   
+    estado = StringField(default="")
+    municipio = StringField(default="")
+    parroquia = StringField(default="")
+    direccion = StringField(default="")
+    modificado = DateTimeField(default = datetime.datetime.now)
+
     
 class Amistad(Document):
     seguidor = ReferenceField(User)
@@ -26,8 +28,8 @@ class Amistad(Document):
     estado = BooleanField(default=False)
 
 class Notificacion(Document):
-    destino = ReferenceField(User)
-    fuente = ReferenceField(User)
+    destino = ReferenceField('self')
+    fuente = ReferenceField('self')
     tipo = IntField(default=0)
     fecha = DateTimeField()
 
@@ -38,9 +40,10 @@ class Perfil (Document):
     amigos = ListField(ReferenceField(Amistad))
 
 class Comentario(EmbeddedDocument):
-    nombreUser = StringField(max_length=120)
-    contenidoc = StringField(max_length=200)
-    fecha_create = DateTimeField()
+    email_autor = EmailField()
+    nombre_autor = StringField(max_length=120)
+    texto = StringField(max_length=200)
+    fecha_create = DateTimeField(auto_now_add=True)
 
 class Imagen(Document):
     url = StringField(max_length=120)
@@ -52,14 +55,17 @@ class CategoriaPost(Document):
 
 class Publicacion(Document):
     autor = ReferenceField(User,dbref=False,reverse_delete_rule=CASCADE)
-    img = ReferenceField(Imagen)
     titulo = StringField(max_length=120, required=True)
     contenido = StringField(max_length=500, required=True)
-    fecha_update = DateTimeField(required=True)
-    tags =ListField(StringField(max_length=30))
-    apoyo = IntField(default = 0)
-    comentarios = MapField(EmbeddedDocumentField(Comentario))
     categoria = ReferenceField(CategoriaPost)
+    fecha_update = DateTimeField(auto_now_add=True)
+    tags =ListField(StringField(max_length=30))
+    likes = IntField(default = 0)
+    comentarios = ListField(EmbeddedDocumentField(Comentario))
+    Meta  =  { 
+        'ordering' :  [ '-fecha_update' ] 
+    }
+    
 
 class Apoyo(Document):
      usuarioApoya = ReferenceField(User)

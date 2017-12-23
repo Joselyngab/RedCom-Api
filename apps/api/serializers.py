@@ -21,7 +21,6 @@ class CategoriaPostSerializer(serializers.DocumentSerializer):
 
 class NotificacionSerializer(serializers.DocumentSerializer):
     class Meta:
-        
         model = Notificacion
         fields = '__all__'
 
