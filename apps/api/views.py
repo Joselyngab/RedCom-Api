@@ -6,8 +6,7 @@ from django.template import RequestContext
 from rest_framework_mongoengine import viewsets
 from models import Publicacion
 from models import User,CategoriaPost,Notificacion,Apoyo
-from serializers import PublicacionSerializer,UserSerializer, 
-CategoriaPostSerializer, NotificacionSerializer,ApoyoSerializer
+from serializers import*
 import datetime
 class PublicacionViewSet(viewsets.ModelViewSet):
     '''
