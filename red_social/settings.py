@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 from mongoengine import *
 connect ( 
-    db = "juno", 
+    db = "redcom", 
     host = "localhost" 
 )
 #DBNAME = 'juno'
