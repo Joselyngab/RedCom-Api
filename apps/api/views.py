@@ -4,14 +4,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from rest_framework_mongoengine import viewsets
-<<<<<<< HEAD
-from models import Publicacion
-from models import User,CategoriaPost,Notificacion,Apoyo
-from serializers import*
-=======
 from models import *
 from serializers import *
->>>>>>> d2cc8b8325d9febe9a7250a94d4cffcbc481116f
 import datetime
 
 
