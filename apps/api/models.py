@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.conf import settings
+from mongoengine_extras.fields import AutoSlugField
+from django.template import defaultfilters
 from mongoengine import *
 import datetime
 connect ( db ='redcom' ) 
@@ -14,9 +16,11 @@ class CategoriaPost(Document):
 class Perfil (Document):
     avatar = StringField(max_length=120,required=True)
     info = StringField(max_length=240,required=True)
+    estado = StringField(max_length=120)
 
 class User(Document):
-    email = EmailField(unique=True)
+    email =StringField(unique=True, required=True)
+    slug =  AutoSlugField(populate_from=email)
     name = StringField(max_length=120)
     password= StringField(max_length=10)
     estado = StringField(default="")
@@ -29,8 +33,13 @@ class User(Document):
     modificado = DateTimeField(default = datetime.datetime.now)
     activo = BooleanField(default=True)
     token = StringField(max_length=120)
-    meta = {'allow_inheritance': True}
-    USERNAME_FIELD= 'email'
+    meta = {'allow_inheritance': True,
+     'ordering' :  [ '-fecha_update' ] 
+     }
+    def save(self, *args, **kwargs):
+           if not self.id:
+            self.slug = defaultfilters.slugify(self.email)
+            super(User, self).save(*args, **kwargs)
 
 class Ente(User):
     telefono = IntField(default=0, min_value=11)
