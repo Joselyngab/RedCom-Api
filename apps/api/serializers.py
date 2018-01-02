@@ -24,7 +24,7 @@ class NotificacionSerializer(serializers.DocumentSerializer):
         fields = '__all__'
         exclude = ('visto = 1')
         
-class CategoriaSerializer(serializers.DocumentSerializer):
+class CategoriaPostSerializer(serializers.DocumentSerializer):
     class Meta:
         model = CategoriaPost
         fields = '__all__'

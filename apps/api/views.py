@@ -9,6 +9,8 @@ from serializers import *
 import datetime
 
 
+
+
 class PublicacionViewSet(viewsets.ModelViewSet):
    
     lookup_field = 'id'
@@ -42,10 +44,10 @@ class NotificacionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Notificacion.objects.all()
 
-class CategoriaViewSet(viewsets.ModelViewSet):
+class CategoriaPostViewSet(viewsets.ModelViewSet):
 
     lookup_field = 'id'
-    serializers_class = CategoriaSerializer
+    serializers_class = CategoriaPostSerializer
 
     def get_queryset(self):
-        return CategoriaPost.objets.all()
+        return CategoriaPost.objects.all()
