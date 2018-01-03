@@ -27,7 +27,7 @@ SECRET_KEY = '9)1vupx8(2v3qz%eq4^*5gyz6xl$k155qh*09bxh5y*4zyv_)r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'django.contrib.sites',
+	'corsheaders',
    
 ]
 SITE_ID = 1
@@ -63,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'red_social.urls'
@@ -140,7 +143,20 @@ REST_FRAMEWORK = {
 ACCOUNT_LOGOUT_ON_GET = True
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-
+CORS_ORIGIN_WHITELIST = (
+   'http://localhost:3333',
+   'localhost:8000',
+)
+CORS_ALLOW_HEADERS = ( 
+'x -request-with ', 
+' content-type ', 
+' accept ', 
+' origin ', 
+' authorization ', 
+' x-csrftoken ', 
+' Api-Authorization ', 
+)
+CORS_ORIGIN_ALLOW_ALL = True
 LANGUAGE_CODE = 'es-ve'
 
 TIME_ZONE = 'UTC'
