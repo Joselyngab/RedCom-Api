@@ -94,10 +94,6 @@ class Publicacion(Document):
     Meta  =  { 
         'ordering' :  [ '-fecha_update' ] 
     }
-<<<<<<< HEAD
-     
-     
-=======
 
 class Municipio(EmbeddedDocument):
     municipio = StringField(max_length=60)
@@ -111,4 +107,3 @@ class Estado(Document):
     id_estado = IntField(unique=True)
     municipios = ListField(EmbeddedDocumentField(Municipio))
     ciudades = ListField(StringField(max_length=60))
->>>>>>> 1d36c916f797c88483accfb83e03841c13e45316
