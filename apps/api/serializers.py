@@ -28,3 +28,8 @@ class CategoriaPostSerializer(serializers.DocumentSerializer):
     class Meta:
         model = CategoriaPost
         fields = '__all__'
+
+class EstadoSerializer(serializers.DocumentSerializer):
+    class Meta:
+        model = Estado
+        fields = '__all__'

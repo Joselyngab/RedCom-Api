@@ -54,3 +54,11 @@ class CategoriaPostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return CategoriaPost.objects.all()
+
+class EstadoViewSet(viewsets.ModelViewSet):
+
+    lookup_field = 'id'
+    serializer_class = EstadoSerializer
+
+    def get_queryset(self):
+        return Estado.objects.all()

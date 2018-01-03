@@ -94,5 +94,16 @@ class Publicacion(Document):
     Meta  =  { 
         'ordering' :  [ '-fecha_update' ] 
     }
-     
 
+class Municipio(EmbeddedDocument):
+    municipio = StringField(max_length=60)
+    capital = StringField(max_length=60)
+    parroquias = ListField(StringField(max_length=60))   
+
+class Estado(Document):
+    iso_31662 = StringField(max_length=100)
+    estado = StringField(max_length=30)
+    capital = StringField(max_length=60)
+    id_estado = IntField(unique=True)
+    municipios = ListField(EmbeddedDocumentField(Municipio))
+    ciudades = ListField(StringField(max_length=60))
