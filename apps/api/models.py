@@ -82,3 +82,4 @@ class Publicacion(Document):
         'ordering' :  [ '-fecha_update' ] 
     }
      
+     
