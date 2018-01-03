@@ -29,10 +29,9 @@ class User(Document):
     seguidores = ListField(ReferenceField('self'))
     seguidos = ListField(ReferenceField('self'))
     notificaciones = ListField(ReferenceField('self'))
-    userperfil = ReferenceField(Perfil,dbref=False,reverse_delete_rule=CASCADE)
+    userperfil = ReferenceField(Perfil,reverse_delete_rule=CASCADE)
     modificado = DateTimeField(default = datetime.datetime.now)
     activo = BooleanField(default=True)
-    token = StringField(max_length=120)
     meta = {'allow_inheritance': True,
      'ordering' :  [ '-fecha_update' ] 
      }
