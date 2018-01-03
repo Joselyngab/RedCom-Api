@@ -24,7 +24,7 @@ class PublicacionViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
  
-    lookup_field = 'slug'
+    lookup_field ='slug'
     serializer_class = UserSerializer
 
     def get_queryset(self):
