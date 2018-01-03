@@ -4,13 +4,17 @@ from __future__ import unicode_literals
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from rest_framework_mongoengine import viewsets
+from rest_framework import permissions
 from models import *
 from serializers import *
 import datetime
 
 
+
+
 class PublicacionViewSet(viewsets.ModelViewSet):
    
+    permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PublicacionSerializer
 
@@ -20,7 +24,7 @@ class PublicacionViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
  
-    lookup_field = 'id'
+    lookup_field = 'slug'
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -28,6 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class PerfilViewSet(viewsets.ModelViewSet):
     
+    permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PerfilSerializer
 
@@ -42,10 +47,18 @@ class NotificacionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Notificacion.objects.all()
 
-class CategoriaViewSet(viewsets.ModelViewSet):
+class CategoriaPostViewSet(viewsets.ModelViewSet):
 
-    lookup_field = 'id'
-    serializers_class = CategoriaSerializer
+    lookup_field = 'nombre'
+    serializer_class = CategoriaPostSerializer
 
     def get_queryset(self):
-        return CategoriaPost.objets.all()
+        return CategoriaPost.objects.all()
+
+class EstadoViewSet(viewsets.ModelViewSet):
+
+    lookup_field = 'id'
+    serializer_class = EstadoSerializer
+
+    def get_queryset(self):
+        return Estado.objects.all()

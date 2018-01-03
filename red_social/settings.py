@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 from gtts import *
 from idna import *
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,19 +28,10 @@ SECRET_KEY = '9)1vupx8(2v3qz%eq4^*5gyz6xl$k155qh*09bxh5y*4zyv_)r'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-from mongoengine import *
-connect ( 
-    db = "redcom", 
-    host = "localhost" 
-)
-#DBNAME = 'juno'
-#connect(DBNAME)
-#SESSION_ENGINE = 'mongoengine.session'
-#AUTHENTICATION_BACKENDS = ('mongoengine.auth.Backend',)
-#MONGODB_HOST = 'localhost'  # enter your MongoDB hostname here
-#MONGODB_PORT = 27017         # enter your MongoDB port here (None for default port)
-#MONGODB_NAME = 'juno'       # enter your MongoDB database name here
+
+
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,9 +41,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.api',
+    'mongoengine',
     'rest_framework',
-    'rest_framework_mongoengine'
+    'rest_framework.authtoken',
+    'rest_framework_mongoengine',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'django.contrib.sites',
+   
 ]
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            
             ],
         },
     },
@@ -87,10 +90,14 @@ WSGI_APPLICATION = 'red_social.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+from mongoengine import *
+
+connect ( db ='redcom' ) 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy',
-        'NAME': 'juno',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME':  os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER':' ',
         'HOST':' ',
         'PORT':' ', 
@@ -100,6 +107,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -115,14 +123,21 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-   # 'DEFAULT_PERMISSION_CLASSES': [
-    #    'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    #]
-}
 
+
+
+REST_FRAMEWORK = {
+
+       'DEFAULT_PERMISSION_CLASSES': (
+       # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+
+      'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
+ACCOUNT_LOGOUT_ON_GET = True
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
