@@ -29,7 +29,7 @@ class User(Document):
     seguidores = ListField(ReferenceField('self'))
     seguidos = ListField(ReferenceField('self'))
     notificaciones = ListField(ReferenceField('self'))
-    userperfil = ReferenceField(Perfil,dbref=False,reverse_delete_rule=CASCADE)
+    userperfil = ReferenceField(Perfil,reverse_delete_rule=CASCADE)
     modificado = DateTimeField(default = datetime.datetime.now)
     activo = BooleanField(default=True)
     meta = {'allow_inheritance': True,
