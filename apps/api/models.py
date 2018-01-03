@@ -32,7 +32,6 @@ class User(Document):
     userperfil = ReferenceField(Perfil,dbref=False,reverse_delete_rule=CASCADE)
     modificado = DateTimeField(default = datetime.datetime.now)
     activo = BooleanField(default=True)
-    token = StringField(max_length=120)
     meta = {'allow_inheritance': True,
      'ordering' :  [ '-fecha_update' ] 
      }
