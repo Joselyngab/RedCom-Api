@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.conf import settings
+
 from mongoengine_extras.fields import AutoSlugField
 from django.template import defaultfilters
 from mongoengine import *
@@ -8,6 +9,7 @@ import datetime
 connect ( db ='redcom' ) 
 
 
+	
 class CategoriaPost(Document):
     nombre = StringField(max_length=50,required=True, unique=True)
     fecha_create = DateTimeField(default = datetime.datetime.now)
