@@ -30,6 +30,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return User.objects.all()
 
+
+
 class PerfilViewSet(viewsets.ModelViewSet):
     
     permission_classes = (permissions.IsAuthenticated,)
