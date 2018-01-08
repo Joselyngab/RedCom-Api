@@ -28,11 +28,11 @@ class User(Document):
     estado = StringField(default="")
     ciudad = StringField(default="")
     direccion = StringField(default="")
-    seguidores = ListField(ReferenceField('self'))
-    seguidos = ListField(ReferenceField('self'))
-    notificaciones = ListField(ReferenceField('self'))
+    seguidores = ListField(StringField(null=True,required=False))
+    seguidos = ListField(StringField(null=True,required=False))
+    notificaciones = ListField(StringField(null=True,required=False))
     userperfil =  EmbeddedDocumentField(Perfil)
-    modificado = DateTimeField(default = datetime.datetime.now)
+    modificado = DateTimeField(default = datetime.datetime.now, null=True,required = False)
     activo = BooleanField(default=True)
     meta = {'allow_inheritance': True,
      'ordering' :  [ '-fecha_update' ] 
@@ -86,12 +86,12 @@ class Publicacion(Document):
     img = StringField(max_length=120)
     contenido = StringField(max_length=500, required=True)
     categoria = ReferenceField(CategoriaPost,required=True)
-    fecha_update = DateTimeField(default = datetime.datetime.now)
-    tags =ListField(StringField(max_length=30))
-    likes = IntField(default = 0)
-    comentarios = ListField(EmbeddedDocumentField(Comentario))
-    activa = BooleanField(default=True)
-    respaldos = ListField(ReferenceField('self'))
+    fecha_update = DateTimeField(default = datetime.datetime.now,null=True,required = False)
+    tags =ListField(StringField(max_length=30),null=True)
+    likes = IntField(default = 0,null=True)
+    comentarios = ListField(EmbeddedDocumentField(Comentario),null=True,required = False)
+    activa = BooleanField(default=True,null=True)
+    respaldos = ListField(ReferenceField('self'),null=True)
     Meta  =  { 
         'ordering' :  [ '-fecha_update' ] 
     }
