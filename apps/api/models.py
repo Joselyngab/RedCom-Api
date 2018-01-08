@@ -86,12 +86,15 @@ class Publicacion(Document):
     img = StringField(max_length=120)
     contenido = StringField(max_length=500, required=True)
     categoria = ReferenceField(CategoriaPost,required=True)
+    estado = StringField(default="",required=False)
+    ciudad = StringField(default="",required=False)
+    direccion = StringField(default="",required=False)
     fecha_update = DateTimeField(default = datetime.datetime.now,null=True,required = False)
     tags =ListField(StringField(max_length=30),null=True)
     likes = IntField(default = 0,null=True)
     comentarios = ListField(EmbeddedDocumentField(Comentario),null=True,required = False)
     activa = BooleanField(default=True,null=True)
-    respaldos = ListField(ReferenceField('self'),null=True)
+    respaldos = ListField(StringField(),null=True)
     Meta  =  { 
         'ordering' :  [ '-fecha_update' ] 
     }
