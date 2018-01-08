@@ -32,15 +32,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 
-class PerfilViewSet(viewsets.ModelViewSet):
-    
-    permission_classes = (permissions.IsAuthenticated,)
-    lookup_field = 'id'
-    serializer_class = PerfilSerializer
-
-    def get_queryset(self):
-        return Perfil.objects.all()
-
 class NotificacionViewSet(viewsets.ModelViewSet):
  
     lookup_field = 'id'

@@ -15,7 +15,7 @@ class CategoriaPost(Document):
     fecha_create = DateTimeField(default = datetime.datetime.now)
     activa = BooleanField(default=True)
 
-class Perfil (Document):
+class Perfil (EmbeddedDocument):
     avatar = StringField(max_length=120,required=True)
     info = StringField(max_length=240,required=True)
     estado = StringField(max_length=120)
@@ -31,7 +31,7 @@ class User(Document):
     seguidores = ListField(ReferenceField('self'))
     seguidos = ListField(ReferenceField('self'))
     notificaciones = ListField(ReferenceField('self'))
-    userperfil = ReferenceField(Perfil,reverse_delete_rule=CASCADE)
+    userperfil =  EmbeddedDocumentField(Perfil)
     modificado = DateTimeField(default = datetime.datetime.now)
     activo = BooleanField(default=True)
     meta = {'allow_inheritance': True,
