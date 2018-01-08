@@ -14,7 +14,7 @@ import datetime
 
 class PublicacionViewSet(viewsets.ModelViewSet):
    
-    permission_classes = (permissions.IsAuthenticated,)
+  #  permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PublicacionSerializer
 
@@ -24,7 +24,7 @@ class PublicacionViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
  
-    lookup_field ='slug'
+    lookup_field ='id'
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -32,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class PerfilViewSet(viewsets.ModelViewSet):
     
-    permission_classes = (permissions.IsAuthenticated,)
+   # permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PerfilSerializer
 
