@@ -44,18 +44,18 @@ class User(Document):
 
 class Ente(User):
     telefono = IntField(default=0, min_value=11)
-    area_dedicada = ReferenceField(CategoriaPost)
+    area_dedicada = StringField()
 
 class Persona(User):
     apellido = StringField(max_length=30)
-    intereses = ListField(ReferenceField(CategoriaPost))
+    intereses = ListField(StringField(),null=True)
     genero = IntField(default=0)
     edad = IntField(default=0)
 
 class Comunidad(User):
     telefono_contacto = IntField(default=0)
     responsable = StringField(max_length=30)
-    a_intereses = ListField(ReferenceField(CategoriaPost))
+    a_intereses = ListField(StringField(), null=True)
     
 class Amistad(Document):
     seguidor = ReferenceField(User)
