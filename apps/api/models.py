@@ -15,7 +15,7 @@ class CategoriaPost(Document):
     fecha_create = DateTimeField(default = datetime.datetime.now)
     activa = BooleanField(default=True)
 
-class Perfil (Document):
+class Perfil (EmbeddedDocument):
     avatar = StringField(max_length=120,required=True)
     info = StringField(max_length=240,required=True)
     estado = StringField(max_length=120)
@@ -25,14 +25,14 @@ class User(Document):
     slug =  AutoSlugField(populate_from=email)
     name = StringField(max_length=120)
     password= StringField(max_length=10)
-    estado = StringField(default="")
-    ciudad = StringField(default="")
-    direccion = StringField(default="")
-    seguidores = ListField(ReferenceField('self'))
-    seguidos = ListField(ReferenceField('self'))
-    notificaciones = ListField(ReferenceField('self'))
-    userperfil = ReferenceField(Perfil,reverse_delete_rule=CASCADE)
-    modificado = DateTimeField(default = datetime.datetime.now)
+    estado = StringField(default="",required=False)
+    ciudad = StringField(default="",required=False)
+    direccion = StringField(default="",required=False)
+    seguidores = ListField(StringField(null=True,required=False))
+    seguidos = ListField(StringField(null=True,required=False))
+    notificaciones = ListField(StringField(null=True,required=False))
+    userperfil =  EmbeddedDocumentField(Perfil)
+    modificado = DateTimeField(default = datetime.datetime.now, null=True,required = False)
     activo = BooleanField(default=True)
     meta = {'allow_inheritance': True,
      'ordering' :  [ '-fecha_update' ] 
@@ -44,18 +44,18 @@ class User(Document):
 
 class Ente(User):
     telefono = IntField(default=0, min_value=11)
-    area_dedicada = ReferenceField(CategoriaPost)
+    area_dedicada = StringField()
 
 class Persona(User):
     apellido = StringField(max_length=30)
-    intereses = ListField(ReferenceField(CategoriaPost))
+    intereses = ListField(StringField(),null=True)
     genero = IntField(default=0)
     edad = IntField(default=0)
 
 class Comunidad(User):
     telefono_contacto = IntField(default=0)
     responsable = StringField(max_length=30)
-    a_intereses = ListField(ReferenceField(CategoriaPost))
+    a_intereses = ListField(StringField(), null=True)
     
 class Amistad(Document):
     seguidor = ReferenceField(User)
@@ -86,12 +86,15 @@ class Publicacion(Document):
     img = StringField(max_length=120)
     contenido = StringField(max_length=500, required=True)
     categoria = ReferenceField(CategoriaPost,required=True)
-    fecha_update = DateTimeField(default = datetime.datetime.now)
-    tags =ListField(StringField(max_length=30))
-    likes = IntField(default = 0)
-    comentarios = ListField(EmbeddedDocumentField(Comentario))
-    activa = BooleanField(default=True)
-    respaldos = ListField(ReferenceField('self'))
+    estado = StringField(default="",required=False)
+    ciudad = StringField(default="",required=False)
+    direccion = StringField(default="",required=False)
+    fecha_update = DateTimeField(default = datetime.datetime.now,null=True,required = False)
+    tags =ListField(StringField(max_length=30),null=True)
+    likes = IntField(default = 0,null=True)
+    comentarios = ListField(EmbeddedDocumentField(Comentario),null=True,required = False)
+    activa = BooleanField(default=True,null=True)
+    respaldos = ListField(StringField(),null=True)
     Meta  =  { 
         'ordering' :  [ '-fecha_update' ] 
     }

@@ -16,7 +16,6 @@ router = routers.DefaultRouter()
 router.register(r'estados', views.EstadoViewSet,r"estados")
 router.register(r'categoriapost', views.CategoriaPostViewSet,r"categoriapost")
 router.register(r'user', views.UserViewSet, r"user")
-router.register(r'perfil', views.PerfilViewSet,r"perfil")
 router.register(r'publicacion', views.PublicacionViewSet, r"publicacion")
 
 
