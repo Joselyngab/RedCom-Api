@@ -13,10 +13,6 @@ class UserSerializer(serializers.DocumentSerializer):
         model = User
         fields = '__all__'
 
-class PerfilSerializer(serializers.DocumentSerializer):
-    class Meta:
-        model = Perfil
-        fields ='__all__'
 
 class NotificacionSerializer(serializers.DocumentSerializer):
     class Meta:

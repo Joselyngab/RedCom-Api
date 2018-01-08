@@ -30,14 +30,15 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return User.objects.all()
 
+<<<<<<< HEAD
 class PerfilViewSet(viewsets.ModelViewSet):
     
    # permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PerfilSerializer
+=======
+>>>>>>> b1104a731f1ecd838ed84ff68cae5b99db73feca
 
-    def get_queryset(self):
-        return Perfil.objects.all()
 
 class NotificacionViewSet(viewsets.ModelViewSet):
  
