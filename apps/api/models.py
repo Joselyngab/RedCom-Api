@@ -25,9 +25,9 @@ class User(Document):
     slug =  AutoSlugField(populate_from=email)
     name = StringField(max_length=120)
     password= StringField(max_length=10)
-    estado = StringField(default="")
-    ciudad = StringField(default="")
-    direccion = StringField(default="")
+    estado = StringField(default="",required=False)
+    ciudad = StringField(default="",required=False)
+    direccion = StringField(default="",required=False)
     seguidores = ListField(StringField(null=True,required=False))
     seguidos = ListField(StringField(null=True,required=False))
     notificaciones = ListField(StringField(null=True,required=False))
@@ -44,18 +44,18 @@ class User(Document):
 
 class Ente(User):
     telefono = IntField(default=0, min_value=11)
-    area_dedicada = ReferenceField(CategoriaPost)
+    area_dedicada = StringField()
 
 class Persona(User):
     apellido = StringField(max_length=30)
-    intereses = ListField(ReferenceField(CategoriaPost))
+    intereses = ListField(StringField(),null=True)
     genero = IntField(default=0)
     edad = IntField(default=0)
 
 class Comunidad(User):
     telefono_contacto = IntField(default=0)
     responsable = StringField(max_length=30)
-    a_intereses = ListField(ReferenceField(CategoriaPost))
+    a_intereses = ListField(StringField(), null=True)
     
 class Amistad(Document):
     seguidor = ReferenceField(User)
@@ -86,12 +86,15 @@ class Publicacion(Document):
     img = StringField(max_length=120)
     contenido = StringField(max_length=500, required=True)
     categoria = ReferenceField(CategoriaPost,required=True)
+    estado = StringField(default="",required=False)
+    ciudad = StringField(default="",required=False)
+    direccion = StringField(default="",required=False)
     fecha_update = DateTimeField(default = datetime.datetime.now,null=True,required = False)
     tags =ListField(StringField(max_length=30),null=True)
     likes = IntField(default = 0,null=True)
     comentarios = ListField(EmbeddedDocumentField(Comentario),null=True,required = False)
     activa = BooleanField(default=True,null=True)
-    respaldos = ListField(ReferenceField('self'),null=True)
+    respaldos = ListField(StringField(),null=True)
     Meta  =  { 
         'ordering' :  [ '-fecha_update' ] 
     }
